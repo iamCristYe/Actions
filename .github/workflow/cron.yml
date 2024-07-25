@@ -1,0 +1,31 @@
+name: Check URLs
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'  # Every 15 minutes
+  workflow_dispatch:
+
+jobs:
+  check-urls:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: fetch IMG_URL
+        run: curl -X GET "$IMG_URL"
+        env:
+          IMG_URL: ${{ secrets.IMG_URL }}
+
+      - name: fetch VIDEO_URL
+        run: curl -X GET "$VIDEO_URL"
+        env:
+          VIDEO_URL: ${{ secrets.VIDEO_URL }}
+
+      - name: fetch TIME_URL
+        run: curl -X GET "$TIME_URL"
+        env:
+          TIME_URL: ${{ secrets.TIME_URL }}
+
+      - name: fetch LOAN_URL
+        run: curl -X GET "$LOAN_URL"
+        env:
+          LOAN_URL: ${{ secrets.LOAN_URL }}
