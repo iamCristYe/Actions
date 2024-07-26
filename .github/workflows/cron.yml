@@ -11,21 +11,21 @@ jobs:
 
     steps:
       - name: fetch IMG_URL
-        run: curl -X GET "$IMG_URL"
+        run: curl -s -X GET "$IMG_URL"
         env:
           IMG_URL: ${{ secrets.IMG_URL }}
 
       - name: fetch VIDEO_URL
-        run: curl -X GET "$VIDEO_URL"
+        run: curl -s -X GET "$VIDEO_URL"
         env:
           VIDEO_URL: ${{ secrets.VIDEO_URL }}
 
       - name: fetch TIME_URL
-        run: curl -X GET "$TIME_URL"
+        run: curl -s -X GET "$TIME_URL"
         env:
           TIME_URL: ${{ secrets.TIME_URL }}
 
       - name: fetch LOAN_URL
-        run: curl -X GET "$LOAN_URL"
+        run: curl -s -X GET "$LOAN_URL"
         env:
           LOAN_URL: ${{ secrets.LOAN_URL }}
