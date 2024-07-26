@@ -24,8 +24,3 @@ jobs:
         run: curl -s -X GET "$TIME_URL"
         env:
           TIME_URL: ${{ secrets.TIME_URL }}
-
-      - name: fetch LOAN_URL
-        run: curl -s -X GET "$LOAN_URL"
-        env:
-          LOAN_URL: ${{ secrets.LOAN_URL }}
