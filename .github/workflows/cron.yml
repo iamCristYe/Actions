@@ -28,4 +28,4 @@ jobs:
       - name: fetch SCRAPER_URL
         run: curl -s -X GET "$SCRAPER_URL"
         env:
-          TIME_URL: ${{ secrets.SCRAPER_URL }}      
+          SCRAPER_URL: ${{ secrets.SCRAPER_URL }}      
