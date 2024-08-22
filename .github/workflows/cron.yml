@@ -25,16 +25,6 @@ jobs:
         env:
           IMG_URL: ${{ secrets.IMG_URL }}
 
-      - name: fetch VIDEO_URL
-        run: curl -s -X GET "$VIDEO_URL"
-        env:
-          VIDEO_URL: ${{ secrets.VIDEO_URL }}
-
-      - name: fetch TIME_URL
-        run: curl -s -X GET "$TIME_URL"
-        env:
-          TIME_URL: ${{ secrets.TIME_URL }}
-
       - name: fetch SCRAPER_URL
         run: curl -s -X GET "$SCRAPER_URL"
         env:
