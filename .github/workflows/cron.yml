@@ -11,26 +11,26 @@ jobs:
 
     steps:
       - name: fetch IP_URL_1
-        run: date && bash -c "$IP_URL_1"
+        run: date && bash -c "$IP_URL_1" && date
         env:
           IP_URL_1: ${{ secrets.IP_URL_1 }}
       
       - name: fetch IP_URL_2
-        run: date && bash -c "$IP_URL_2"
+        run: date && bash -c "$IP_URL_2" && date
         env:
           IP_URL_2: ${{ secrets.IP_URL_2 }}
         
       - name: fetch IMG_URL
-        run: date && curl -s -X GET "$IMG_URL"
+        run: date && curl -s -X GET "$IMG_URL" && date
         env:
           IMG_URL: ${{ secrets.IMG_URL }}      
       
       - name: fetch VIDEO_URL
-        run: date && curl -s -X GET "$VIDEO_URL"
+        run: date && curl -s -X GET "$VIDEO_URL" && date
         env:
           VIDEO_URL: ${{ secrets.VIDEO_URL }}
 
       - name: fetch SCRAPER_URL
-        run: date || curl -s -X GET "$SCRAPER_URL"
+        run: date && curl -s -X GET "$SCRAPER_URL" && date
         env:
           SCRAPER_URL: ${{ secrets.SCRAPER_URL }}      
