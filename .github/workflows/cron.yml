@@ -10,27 +10,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: fetch IP_URL_1
-        run: date && bash -c "$IP_URL_1" && date
+      - name: Run Command 1
+        run: date && bash -c "$CMD_1" && echo && date
         env:
-          IP_URL_1: ${{ secrets.IP_URL_1 }}
-      
-      - name: fetch IP_URL_2
-        run: date && bash -c "$IP_URL_2" && date
+          CMD_1: ${{ secrets.CMD_1 }}
+      - name: Run Command 2
+        run: date && bash -c "$CMD_2" && echo && date
         env:
-          IP_URL_2: ${{ secrets.IP_URL_2 }}
-        
-      - name: fetch IMG_URL
-        run: date && curl -s -X GET "$IMG_URL" && date
+          CMD_2: ${{ secrets.CMD_2 }}
+      - name: Run Command 3
+        run: date && bash -c "$CMD_3" && echo && date
         env:
-          IMG_URL: ${{ secrets.IMG_URL }}      
-      
-      - name: fetch VIDEO_URL
-        run: date && curl -s -X GET "$VIDEO_URL" && date
+          CMD_3: ${{ secrets.CMD_3 }}
+      - name: Run Command 4
+        run: date && bash -c "$CMD_4" && echo && date
         env:
-          VIDEO_URL: ${{ secrets.VIDEO_URL }}
-
-      - name: fetch SCRAPER_URL
-        run: date && curl -s -X GET "$SCRAPER_URL" && date
+          CMD_4: ${{ secrets.CMD_4 }}
+      - name: Run Command 5
+        run: date && bash -c "$CMD_5" && echo && date
         env:
-          SCRAPER_URL: ${{ secrets.SCRAPER_URL }}      
+          CMD_5: ${{ secrets.CMD_5 }}
+      - name: Run Command 6
+        run: date && bash -c "$CMD_6" && echo && date
+        env:
+          CMD_6: ${{ secrets.CMD_6 }}
+      - name: Run Command 7
+        run: date && bash -c "$CMD_1" && echo && date
+        env:
+          CMD_7: ${{ secrets.CMD_17 }}
+      - name: Run Command 8
+        run: date && bash -c "$CMD_8" && echo && date
+        env:
+          CMD_8: ${{ secrets.CMD_8 }}
