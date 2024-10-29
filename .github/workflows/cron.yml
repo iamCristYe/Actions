@@ -35,9 +35,9 @@ jobs:
         env:
           CMD_6: ${{ secrets.CMD_6 }}
       - name: Run Command 7
-        run: date && bash -c "$CMD_1" && echo && date
+        run: date && bash -c "$CMD_7" && echo && date
         env:
-          CMD_7: ${{ secrets.CMD_17 }}
+          CMD_7: ${{ secrets.CMD_7 }}
       - name: Run Command 8
         run: date && bash -c "$CMD_8" && echo && date
         env:
