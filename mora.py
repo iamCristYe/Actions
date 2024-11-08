@@ -30,7 +30,7 @@ def send_telegram_message(token, channel_id, message):
 
 
 async def main():
-    for code1 in range(658, 500, -1):
+    for code1 in range(650, 700, 1):
         for code2 in range(0, 1000):
             # Define the URL of the image
             url = f"https://cf.mora.jp/contents/package/0000/00000361/0036/{code1:03d}/{code2:03d}/0036{code1:03d}{code2:03d}.130.jpg"
