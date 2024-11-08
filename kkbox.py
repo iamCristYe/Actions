@@ -26,7 +26,8 @@ def send_telegram_message(token, channel_id, message):
 
 
 async def main():
-    for code in range(275846980, 275856980, 1):
+    start = int(os.environ["start"])
+    for code in range(start, start + 5000, 1):
         # Define the URL of the image
         url = f"https://i.kfs.io/album/global/{code},1v1/fit/500x500.jpg"
         # https://i.kfs.io/artist/global/407071,0v36/fit/500x500.jpg
