@@ -30,10 +30,10 @@ def send_telegram_message(token, channel_id, message):
 
 
 async def main():
-    for code1 in range(605, 520, -1):
+    for code1 in range(658, 500, -1):
         for code2 in range(0, 1000):
             # Define the URL of the image
-            url = f"https://cf.mora.jp/contents/package/0000/00000196/0036/{code1:03d}/{code2:03d}/0036{code1:03d}{code2:03d}.130.jpg"
+            url = f"https://cf.mora.jp/contents/package/0000/00000361/0036/{code1:03d}/{code2:03d}/0036{code1:03d}{code2:03d}.130.jpg"
             print(f"Trying URL: {url}")
 
             # Retry mechanism in case of connection issues
@@ -46,11 +46,11 @@ async def main():
                     # Check if the request was successful (status code 200)
                     if response.status_code == 200 and len(response.content) > 6 * 1024:
                         # Save the content to a file
-                        with open(f"0036{code1:03d}{code2:03d}.jpg", "wb") as file:
-                            file.write(response.content)
-                        print(
-                            f"Image saved successfully as 0036{code1:03d}{code2:03d}.jpg"
-                        )
+                        # with open(f"0036{code1:03d}{code2:03d}.jpg", "wb") as file:
+                        #     file.write(response.content)
+                        # print(
+                        #     f"Image saved successfully as 0036{code1:03d}{code2:03d}.jpg"
+                        # )
                         send_telegram_message(
                             os.environ["bot_token"],
                             os.environ["chat_id"],
