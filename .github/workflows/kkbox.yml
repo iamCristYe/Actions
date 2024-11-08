@@ -1,0 +1,33 @@
+name: kkbox
+
+on:
+  workflow_dispatch:
+
+jobs:
+  kkbox:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.8' # Specify the Python version you need
+    
+      - name: Run apt and pip
+        run: |
+          sudo apt update
+          sudo apt install p7zip-full
+          sudo apt install curl
+          pip install requests
+          pip install pytz
+          pip install python-telegram-bot
+
+      - name: Run Python script
+        run: |
+          python kkbox.py
+        env:
+            bot_token: ${{ secrets.bot_token }}
+            chat_id: ${{ secrets.chat_id }}
