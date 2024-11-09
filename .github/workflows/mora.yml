@@ -29,5 +29,5 @@ jobs:
         run: |
           python mora.py
         env:
-            bot_token: ${{ secrets.bot_token }}
+            bot_token: ${{ secrets.BOT_TOKEN_COVER }}
             chat_id: ${{ secrets.chat_id }}

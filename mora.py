@@ -30,7 +30,7 @@ def send_telegram_message(token, channel_id, message):
 
 
 async def main():
-    for code1 in range(650, 700, 1):
+    for code1 in range(590, 605, 1):
         for code2 in range(0, 1000):
             # Define the URL of the image
             url = f"https://cf.mora.jp/contents/package/0000/00000361/0036/{code1:03d}/{code2:03d}/0036{code1:03d}{code2:03d}.130.jpg"
@@ -41,8 +41,9 @@ async def main():
                 try:
                     # Send a GET request to the URL
                     response = requests.get(url)
+                    last_modified = response.headers.get("Last-Modified")
                     with open("mora.txt", "a") as f:
-                        f.write(url + "\n")
+                        f.write(url + "\n" + last_modified + "\n")
                     # Check if the request was successful (status code 200)
                     if response.status_code == 200 and len(response.content) > 6 * 1024:
                         # Save the content to a file
