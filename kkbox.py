@@ -81,7 +81,7 @@ async def main():
                     await send_file_to_telegram()
                     break
                 except:
-                    print("Connection lost. Retrying in 10 seconds...")
+                    print("send_file_to_telegram failed. Retrying in 10 seconds...")
                     time.sleep(10)  # Wait 10 seconds before retrying
 
 
