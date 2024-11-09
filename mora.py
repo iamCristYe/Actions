@@ -44,7 +44,10 @@ async def main():
                     # Send a GET request to the URL
                     response = requests.get(url)
                     last_modified = ""
-                    last_modified = response.headers.get("Last-Modified")
+                    last_modified = response.headers.get("last-modified")
+                    if not last_modified:
+                        last_modified = ""
+
                     with open(f"mora-{end}.txt", "a") as f:
                         f.write(url + "\n" + last_modified + "\n")
                     # Check if the request was successful (status code 200)
