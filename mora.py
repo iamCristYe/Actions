@@ -35,7 +35,7 @@ async def main():
     for code1 in range(start, end, 1):
         for code2 in range(0, 1000):
             # Define the URL of the image
-            url = f"https://cf.mora.jp/contents/package/0000/00000361/0036/{code1:03d}/{code2:03d}/0036{code1:03d}{code2:03d}.130.jpg"
+            url = f"https://cf.mora.jp/contents/package/0000/00000196/0036/{code1:03d}/{code2:03d}/0036{code1:03d}{code2:03d}.130.jpg"
             print(f"Trying URL: {url}")
 
             # Retry mechanism in case of connection issues

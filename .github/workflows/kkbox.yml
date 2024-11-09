@@ -1,9 +1,6 @@
 name: kkbox
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
