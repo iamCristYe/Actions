@@ -55,7 +55,7 @@ async def main():
                         send_telegram_message(
                             os.environ["bot_token"],
                             os.environ["chat_id"],
-                            url,
+                            url + "\n" + last_modified,
                         )
                         print("Image saved successfully.")
                     else:
