@@ -8,6 +8,8 @@ import time
 import os
 from telegram import Bot
 
+start = int(os.environ["start"])
+end = int(os.environ["end"])
 # 发送压缩文件到Telegram
 
 
@@ -15,7 +17,7 @@ async def send_file_to_telegram():
     telegram_token = os.environ["bot_token"]  # 替换为你的Telegram bot token
     telegram_chat_id = os.environ["chat_id"]  # 替换为你的频道或群组ID
     bot = Bot(token=telegram_token)
-    archive_path = os.path.join(".", "mora.txt")
+    archive_path = os.path.join(".", f"mora-{end}.txt")
     await bot.send_document(chat_id=telegram_chat_id, document=open(archive_path, "rb"))
 
 
@@ -30,7 +32,7 @@ def send_telegram_message(token, channel_id, message):
 
 
 async def main():
-    for code1 in range(590, 605, 1):
+    for code1 in range(start, end, 1):
         for code2 in range(0, 1000):
             # Define the URL of the image
             url = f"https://cf.mora.jp/contents/package/0000/00000361/0036/{code1:03d}/{code2:03d}/0036{code1:03d}{code2:03d}.130.jpg"
@@ -41,8 +43,9 @@ async def main():
                 try:
                     # Send a GET request to the URL
                     response = requests.get(url)
+                    last_modified = ""
                     last_modified = response.headers.get("Last-Modified")
-                    with open("mora.txt", "a") as f:
+                    with open(f"mora-{end}.txt", "a") as f:
                         f.write(url + "\n" + last_modified + "\n")
                     # Check if the request was successful (status code 200)
                     if response.status_code == 200 and len(response.content) > 6 * 1024:
@@ -55,7 +58,7 @@ async def main():
                         send_telegram_message(
                             os.environ["bot_token"],
                             os.environ["chat_id"],
-                            url,
+                            url + "\n" + last_modified,
                         )
                         break  # Exit the retry loop if successful
                     else:
@@ -65,12 +68,20 @@ async def main():
                         )
                         break  # Exit the loop if image not found or another HTTP error
 
-                except:
+                except Exception as e:
+                    print(e)
                     print("Connection lost. Retrying in 10 seconds...")
                     time.sleep(10)  # Wait 10 seconds before retrying
 
             # time.sleep(1)  # Pause between different URLs
-        await send_file_to_telegram()
+        while True:
+            try:
+                await send_file_to_telegram()
+                break
+            except Exception as e:
+                print(e)
+                print("Connection lost. Retrying in 10 seconds...")
+                time.sleep(10)  # Wait 10 seconds before retrying
 
 
 import asyncio
