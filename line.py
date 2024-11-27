@@ -58,14 +58,14 @@ async def main():
                                 f.write(url + " trackTotalCount 0" "\n")
                                 print(url)
                                 break
-                        artistId = result["response"]["result"]["tracks"][0]["artists"][
-                            0
-                        ]["artistId"]
+                        artistName = result["response"]["result"]["tracks"][0][
+                            "artists"
+                        ][0]["artistName"]
 
-                        print(artistId)
+                        print(artistName)
                         with open(f"line-{end}.txt", "a") as f:
-                            f.write(url + "\t" + artistId + "\n")
-                        if artistId == "mi000000000073c0cc":
+                            f.write(url + "\t" + artistName + "\n")
+                        if "坂" in "artistName":
                             send_telegram_message(
                                 os.environ["bot_token"],
                                 os.environ["chat_id"],
