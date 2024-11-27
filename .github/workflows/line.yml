@@ -1,0 +1,35 @@
+name: line
+
+on:
+  workflow_dispatch:
+
+jobs:
+  line:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.8' # Specify the Python version you need
+    
+      - name: Run apt and pip
+        run: |
+          sudo apt update
+          sudo apt install p7zip-full
+          sudo apt install curl
+          pip install requests
+          pip install pytz
+          pip install python-telegram-bot
+
+      - name: Run Python script
+        run: |
+          python line.py
+        env:
+            bot_token: ${{ secrets.BOT_TOKEN }}
+            chat_id: ${{ secrets.BOT_TOKEN_COVER }}
+            start:  194000
+            end:    204000
