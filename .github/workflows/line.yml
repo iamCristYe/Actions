@@ -31,5 +31,5 @@ jobs:
         env:
             bot_token: ${{ secrets.BOT_TOKEN }}
             chat_id: ${{ secrets.CHAT_ID_LINE }}
-            start:  204000
-            end:    214002
+            start:  214000
+            end:    224002
