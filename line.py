@@ -31,7 +31,8 @@ async def main():
     end = int(os.environ["end"])
     for code in range(start, end, 1):
         # Define the URL of the image
-        url = f"https://music.line.me/api2/tracks/mt00000000207{hex(code).split('x')[-1]}.v1"
+        # https://music.line.me/webapp/new-songs
+        url = f"https://music.line.me/api2/tracks/mt0000000020a{hex(code).split('x')[-1]}.v1"
         # https://i.kfs.io/artist/global/407071,0v36/fit/500x500.jpg
         print(code, url)
         # Send a GET request to the URL
