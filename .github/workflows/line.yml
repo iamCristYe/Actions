@@ -30,6 +30,6 @@ jobs:
           python line.py
         env:
             bot_token: ${{ secrets.BOT_TOKEN }}
-            chat_id: ${{ secrets.BOT_TOKEN_COVER }}
+            chat_id: ${{ secrets.CHAT_ID_LINE }}
             start:  912600
             end:    912700

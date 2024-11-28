@@ -30,6 +30,6 @@ jobs:
           python kkbox.py
         env:
             bot_token: ${{ secrets.BOT_TOKEN }}
-            chat_id: ${{ secrets.BOT_TOKEN_COVER }}
+            chat_id: ${{ secrets.CHAT_ID_COVER }}
             start:  276689000
             end:    276698000
