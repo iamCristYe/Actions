@@ -10,11 +10,15 @@ from github import Auth
 
 # 发送压缩文件到Telegram
 async def send_file_to_telegram():
-    end = int(os.environ["end"])
+    with open("kkbox.json") as f:
+        data = json.load(f)
+        if data["running"]:
+            return
+        start = int(data["last"] / 1000) * 1000 - 1
     telegram_token = os.environ["bot_token"]  # 替换为你的Telegram bot token
     telegram_chat_id = os.environ["chat_id"]  # 替换为你的频道或群组ID
     bot = Bot(token=telegram_token)
-    archive_path = os.path.join(".", f"kkbox-{end}.txt")
+    archive_path = os.path.join(".", f"kkbox-{start}.txt")
     await bot.send_document(chat_id=telegram_chat_id, document=open(archive_path, "rb"))
 
 
@@ -63,7 +67,7 @@ async def main():
         # To close connections after use
         g.close()
 
-    for code in range(start, start + 2002, 1):
+    for code in range(start, start + 5005, 1):
         # Define the URL of the image
         url = f"https://i.kfs.io/album/global/{code},1v1/fit/500x500.jpg"
         # https://i.kfs.io/artist/global/407071,0v36/fit/500x500.jpg
@@ -132,7 +136,7 @@ async def main():
         repo = g.get_user().get_repo("cron")
         contents = repo.get_contents("kkbox.json")
 
-        data["last"] = start + 2002
+        data["last"] = start + 5005
         data["running"] = False
 
         with open("kkbox.json", "r") as f:
