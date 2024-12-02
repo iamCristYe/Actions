@@ -20,13 +20,13 @@ async def send_file_to_telegram():
     await bot.send_document(chat_id=telegram_chat_id, document=open(archive_path, "rb"))
 
 
-def send_telegram_image(token, channel_id, url, message):
+def send_telegram_image(token, channel_id, url_img, message):
     while True:
         try:
             url = f"https://api.telegram.org/bot{token}/sendPhoto"
             payload = {
                 "chat_id": channel_id,  # Channel ID with "@" (e.g., "@your_channel_id")
-                "photo": url,
+                "photo": url_img,
                 "caption": message,
             }
             response = requests.post(url, data=payload)
