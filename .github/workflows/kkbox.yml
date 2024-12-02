@@ -24,6 +24,7 @@ jobs:
           pip install requests
           pip install pytz
           pip install python-telegram-bot
+          pip install PyGithub
 
       - name: Run Python script
         run: |
