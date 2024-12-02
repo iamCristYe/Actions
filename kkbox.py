@@ -1,9 +1,11 @@
 import requests
 
-
+import json
 import time
 import os
 from telegram import Bot
+from github import Github
+from github import Auth
 
 
 # 发送压缩文件到Telegram
@@ -16,20 +18,54 @@ async def send_file_to_telegram():
     await bot.send_document(chat_id=telegram_chat_id, document=open(archive_path, "rb"))
 
 
-def send_telegram_message(token, channel_id, message):
-    url = f"https://api.telegram.org/bot{token}/sendMessage"
-    payload = {
-        "chat_id": channel_id,  # Channel ID with "@" (e.g., "@your_channel_id")
-        "text": message,
-    }
-    response = requests.post(url, data=payload)
-    return response.json()
+def send_telegram_image(token, channel_id, url, message):
+    while True:
+        try:
+            url = f"https://api.telegram.org/bot{token}/sendPhoto"
+            payload = {
+                "chat_id": channel_id,  # Channel ID with "@" (e.g., "@your_channel_id")
+                "photo": url,
+                "caption": message,
+            }
+            response = requests.post(url, data=payload)
+            time.sleep(30)
+            return response.json()
+        except:
+            time.sleep(30)
 
 
 async def main():
-    start = int(os.environ["start"])
-    end = int(os.environ["end"])
-    for code in range(start, end, 1):
+    data = {}
+    need_update = False
+    with open("kkbox.json") as f:
+        data = json.load(f)
+        if data["running"]:
+            return
+            # using an access token
+        auth = Auth.Token(os.environ["github_token"])
+        start = int(data["last"] / 100) * 100 - 1
+        data["running"] = True
+        with open("kkbox.josn", "w") as f:
+            json.dump(data, f)
+
+        # using an access token
+        auth = Auth.Token(os.environ["github_token"])
+
+        # First create a Github instance:
+        # Public Web Github
+        g = Github(auth=auth)
+
+        # Then play with your Github objects:
+        repo = g.get_user().get_repo("cron")
+        contents = repo.get_contents("kkbox.json")
+
+        with open("kkbox.json", "r") as f:
+            repo.update_file("kkbox.json", f"kkbox s {start}", f.read(), contents.sha)
+
+        # To close connections after use
+        g.close()
+
+    for code in range(start, start + 2002, 1):
         # Define the URL of the image
         url = f"https://i.kfs.io/album/global/{code},1v1/fit/500x500.jpg"
         # https://i.kfs.io/artist/global/407071,0v36/fit/500x500.jpg
@@ -50,16 +86,18 @@ async def main():
                         # Save the content to a file
                         # with open(f"img/{code}.jpg", "wb") as file:
                         #     file.write(response.content)
-                        with open(f"kkbox-{end}.txt", "a") as f:
+                        with open(f"kkbox-{start}.txt", "a") as f:
                             f.write(url + "\t" + last_modified + "\n")
-                        send_telegram_message(
+                        send_telegram_image(
                             os.environ["bot_token"],
                             os.environ["chat_id"],
+                            url,
                             url + "\n" + last_modified,
                         )
+                        need_update = True
                         print("Image saved successfully.")
                     else:
-                        with open(f"kkbox-{end}.txt", "a") as f:
+                        with open(f"kkbox-{start}.txt", "a") as f:
                             f.write(url + "\n")
                         print("File < 6KB")
                     break
@@ -83,6 +121,27 @@ async def main():
                 except:
                     print("send_file_to_telegram failed. Retrying in 10 seconds...")
                     time.sleep(10)  # Wait 10 seconds before retrying
+
+    if need_update:
+        # using an access token
+        auth = Auth.Token(os.environ["github_token"])
+
+        # First create a Github instance:
+        # Public Web Github
+        g = Github(auth=auth)
+
+        # Then play with your Github objects:
+        repo = g.get_user().get_repo("cron")
+        contents = repo.get_contents("kkbox.json")
+
+        data["last"] = start + 2002
+        data["running"] = False
+
+        with open("kkbox.json", "r") as f:
+            repo.update_file("kkbox.json", f"kkbox e {start}", f.read(), contents.sha)
+
+        # To close connections after use
+        g.close()
 
 
 import asyncio

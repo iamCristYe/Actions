@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.Token_GitHub }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -29,7 +31,7 @@ jobs:
         run: |
           python kkbox.py
         env:
+            github_token: ${{ secrets.Token_GitHub }}
             bot_token: ${{ secrets.BOT_TOKEN }}
             chat_id: ${{ secrets.CHAT_ID_COVER }}
-            start:  276730000
-            end:    276738002
+
