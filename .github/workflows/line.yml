@@ -1,6 +1,8 @@
 name: line
 
 on:
+  schedule:
+    - cron: '*/30 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -24,12 +26,12 @@ jobs:
           pip install requests
           pip install pytz
           pip install python-telegram-bot
+          pip install PyGithub
 
       - name: Run Python script
         run: |
           python line.py
         env:
+            github_token: ${{ secrets.Token_GitHub }}
             bot_token: ${{ secrets.BOT_TOKEN }}
             chat_id: ${{ secrets.CHAT_ID_LINE }}
-            start:  244000
-            end:    254002

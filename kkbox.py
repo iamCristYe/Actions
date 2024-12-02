@@ -41,11 +41,9 @@ async def main():
         data = json.load(f)
         if data["running"]:
             return
-            # using an access token
-        auth = Auth.Token(os.environ["github_token"])
-        start = int(data["last"] / 100) * 100 - 1
+        start = int(data["last"] / 1000) * 1000 - 1
         data["running"] = True
-        with open("kkbox.josn", "w") as f:
+        with open("kkbox.json", "w") as f:
             json.dump(data, f)
 
         # using an access token
