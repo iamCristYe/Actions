@@ -13,8 +13,6 @@ from github import Auth
 async def send_file_to_telegram():
     with open("line.json") as f:
         data = json.load(f)
-        if data["running"]:
-            return
         start = int(data["last"] / 1000) * 1000 - 1
     telegram_token = os.environ["bot_token"]  # 替换为你的Telegram bot token
     telegram_chat_id = os.environ["chat_id"]  # 替换为你的频道或群组ID
