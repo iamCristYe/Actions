@@ -103,6 +103,7 @@ async def main():
                         print(artistName)
                         with open(f"line-{start}.txt", "a") as f:
                             f.write(url + "\t" + artistName + "\n")
+                            f.write("\n" + json.dumps(result) + "\n")
                         if "坂" in artistName:
                             send_telegram_message(
                                 os.environ["bot_token"],
