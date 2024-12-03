@@ -95,14 +95,15 @@ async def main():
                                 f.write(url + " trackTotalCount 0" "\n")
                                 print(url)
                                 break
-                        artistName = result["response"]["result"]["tracks"][0][
-                            "artists"
-                        ][0]["artistName"]
+                        result_dict = result["response"]["result"]["tracks"][0]
+                        artistName = result_dict["artists"][0]["artistName"]
+                        releaseDate = result_dict["album"]["releaseDate"]
+
                         need_update = True
 
-                        print(artistName)
+                        print(artistName, releaseDate)
                         with open(f"line-{start}.txt", "a") as f:
-                            f.write(url + "\t" + artistName + "\n")
+                            f.write(url + "\t" + artistName + "\t" + releaseDate + "\n")
                             f.write("\n" + json.dumps(result) + "\n")
                         if "坂" in artistName:
                             send_telegram_message(
