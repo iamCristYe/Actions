@@ -91,10 +91,18 @@ async def main():
                                 print(url)
                                 break
                         if result["response"]["result"]["trackTotalCount"] == 0:
-                            with open(f"line-{start}.txt", "a") as f:
-                                f.write(url + " trackTotalCount 0" "\n")
-                                print(url)
-                                break
+                            url_play = f"https://music.line.me/api2/track/mt0000000020{hex(code).split('x')[-1]}/source/forWebPlay.v1?deviceId=3371c0af-981b-4708-ba83-2e89326eea0c&forceAnonymous=false&t=1733206465357"
+                            if requests.head(url_play).status_code == 302:
+                                with open(f"line-{start}.txt", "a") as f:
+                                    f.write(url + " trackTotalCount 0" "\n")
+                                    print(url)
+                                    break
+                            else:
+                                send_telegram_message(
+                                    os.environ["bot_token"],
+                                    os.environ["chat_id"],
+                                    url_play,
+                                )
                         result_dict = result["response"]["result"]["tracks"][0]
                         artistName = result_dict["artists"][0]["artistName"]
                         releaseDate = result_dict["album"]["releaseDate"]
