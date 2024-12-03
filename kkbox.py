@@ -30,10 +30,9 @@ def send_telegram_image(token, channel_id, url_img, message):
                 "caption": message,
             }
             response = requests.post(url, data=payload)
-            time.sleep(30)
             return response.json()
         except:
-            time.sleep(30)
+            time.sleep(10)
 
 
 async def main():
@@ -78,7 +77,7 @@ async def main():
                 response = requests.get(url)
                 last_modified = response.headers.get("last-modified")
 
-                time.sleep(1)
+                # time.sleep(1)
                 # Check if the request was successful (status code 200)
                 if response.status_code == 200:
                     if len(response.content) > 6 * 1024:
