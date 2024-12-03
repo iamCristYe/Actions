@@ -136,6 +136,8 @@ async def main():
 
         data["last"] = start + 5005
         data["running"] = False
+        with open("kkbox.json", "w") as f:
+            json.dump(data, f)
 
         with open("kkbox.json", "r") as f:
             repo.update_file("kkbox.json", f"kkbox e {start}", f.read(), contents.sha)

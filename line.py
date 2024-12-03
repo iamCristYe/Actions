@@ -132,8 +132,8 @@ async def main():
                 try:
                     await send_file_to_telegram()
                     break
-                except:
-                    print("send_file_to_telegram failed. Retrying in 10 seconds...")
+                except Exception as e:
+                    print(e)
                     time.sleep(10)  # Wait 10 seconds before retrying
 
     if need_update:
@@ -150,6 +150,8 @@ async def main():
 
         data["last"] = start + 5005
         data["running"] = False
+        with open("line.json", "w") as f:
+            json.dump(data, f)
 
         with open("line.json", "r") as f:
             repo.update_file("line.json", f"line e {start}", f.read(), contents.sha)
